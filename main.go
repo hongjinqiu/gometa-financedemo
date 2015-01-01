@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/hongjinqiu/gometa/app"
 	"github.com/hongjinqiu/gometa/console"
 	"github.com/hongjinqiu/gometa/log"
 	"github.com/hongjinqiu/gometa/route"
@@ -19,6 +20,7 @@ var constrollersDict []reflect.Type = []reflect.Type{}
 
 func init() {
 	constrollersDict = append(constrollersDict, reflect.TypeOf(console.Console{}))
+	constrollersDict = append(constrollersDict, reflect.TypeOf(app.App{}))
 
 	route.FilterLi = append(route.FilterLi, SessionAdapter)
 	route.FilterLi = append(route.FilterLi, UTF8Filter)
@@ -47,6 +49,10 @@ func registerRoute() {
 	http.HandleFunc("/bar/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Hello, %q", html.EscapeString(r.URL.Path))
 	})
+
+	if true {
+		return
+	}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(constrollersDict[0].Name())
@@ -82,6 +88,7 @@ func registerRoute() {
 }
 
 //devsrvr -addr=:8001 -targetaddr=localhost:8888 D:\goworkspace\src\github.com\gometa-financedemo D:\goworkspace\src\github.com\gometa
+//devsrvr -addr=:8001 -targetaddr=localhost:8888 /home/hongjinqiu/goworkspace/src/github.com/hongjinqiu/gometa-financedemo /home/hongjinqiu/goworkspace/src/github.com/hongjinqiu/gometa
 func main() {
 	flag.Parse()
 	log.Warn("listening on:", *addr)
