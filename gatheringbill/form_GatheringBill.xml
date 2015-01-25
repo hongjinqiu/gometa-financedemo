@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form-template xmlns="http://www.papersns.com/template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.papersns.com/template http://www.papersns.com/template ">
+	<id>GatheringBill</id>
+	<data-source-model-id>GatheringBill</data-source-model-id>
+	<adapter name="ModelFormTemplateAdapter" />
+	<description>收款单表单</description>
+	<scripts>gatheringbill/gatheringBillModel.js</scripts>
+	<view-template view="Console/FormSchema.html" />
+	<security byUnit="true" />
+
+	<toolbar>
+		<button name="listBtn" text="列表页" mode="url" handler="/console/listschema?@name=GatheringBill" iconCls="but_box"></button>
+		<button name="newBtn" text="新增" mode="fn" handler="newData" iconCls="but_box"></button>
+		<button name="copyBtn" text="复制" mode="fn" handler="copyData" iconCls="but_box"></button>
+		<button name="editBtn" text="修改" mode="fn" handler="editData" iconCls="but_box"></button>
+		<button name="saveBtn" text="保存" mode="fn" handler="limitControlSaveData" iconCls="but_box"></button>
+		<button name="giveUpBtn" text="放弃" mode="fn" handler="giveUpData" iconCls="but_box"></button>
+		<button name="delBtn" text="删除" mode="fn" handler="limitControlDeleteData" iconCls="but_box"></button>
+		<button name="cancelBtn" text="作废" mode="fn" handler="limitControlCancelData" iconCls="but_box"></button>
+		<button name="unCancelBtn" text="反作废" mode="fn" handler="limitControlUnCancelData" iconCls="but_box"></button>
+		<button name="refreshBtn" text="刷新" mode="fn" handler="refreshData" iconCls="but_box"></button>
+		<button name="usedQueryBtn" text="被用查询" mode="fn" handler="logList" iconCls="but_box"></button>
+	</toolbar>
+
+	<column-model dataSetId="A" colSpan="6">
+		<id-column name="id" text="编号" hideable="true" />
+
+		<auto-column name="billDate" colSpan="2" labelWidth="13%" columnWidth="20%" />
+		<auto-column name="billNo" colSpan="2" labelWidth="13%" columnWidth="20%" />
+		<auto-column name="billTypeId" colSpan="2" labelWidth="13%" />
+		<auto-column name="property" colSpan="2">
+			<column-attribute name="observe" value="accountId,receiveBankId,accountProperty" />
+		</auto-column>
+		<auto-column name="billStatus" colSpan="2" />
+	</column-model>
+
+	<html><![CDATA[
+			<div id="tabContent" style="visibility: hidden;">
+				<ul>
+					<li><a href="#baseInfoDiv">基本信息</a></li>
+					<li><a href="#manageInfoDiv">管理信息</a></li>
+					<li><a href="#remarkDiv">备注</a></li>
+				</ul>
+				<div>
+					<div id="baseInfoDiv">
+					<div class="panel-header">
+						<div class="panel-title">收款账户信息</div>
+					</div>
+	]]></html>
+
+	<column-model dataSetId="A" colSpan="6">
+		<auto-column name="accountId" colSpan="2" labelWidth="13%" columnWidth="20%">
+			<relationDS>
+				<relationItem name="BankAccount">
+					<copyConfig copyColumnName="receiveBankId" copyValueField="bankId" />
+					<copyConfig copyColumnName="accountProperty" copyValueField="accountProperty" />
+				</relationItem>
+			</relationDS>
+		</auto-column>
+		<auto-column name="receiveBankId" dsFieldMap="BankAccount.A.bankId" readOnly="true" fixReadOnly="true" colSpan="2" labelWidth="13%" columnWidth="20%" />
+		<auto-column name="accountProperty" dsFieldMap="BankAccount.A.accountProperty" readOnly="true" fixReadOnly="true" colSpan="2" labelWidth="13%" />
+		<auto-column name="balanceDate" colSpan="2" />
+		<auto-column name="balanceTypeId" colSpan="2" />
+		<auto-column name="balanceNo" colSpan="2" />
+	</column-model>
+
+	<html>
+		<![CDATA[
+			<div class="panel-header">
+				<div class="panel-title">帐款信息</div>
+			</div>
+		]]>
+	</html>
+
+	<column-model dataSetId="A" colSpan="6">
+		<auto-column name="chamberlainType" colSpan="2" labelWidth="13%" columnWidth="20%">
+			<column-attribute name="observe" value="chamberlainId,chamberlainDesc" />
+		</auto-column>
+		<auto-column name="chamberlainId" colSpan="2" labelWidth="13%" columnWidth="20%" />
+		<auto-column name="chamberlainDesc" colSpan="2" labelWidth="13%" />
+		<auto-column name="sysUserId" colSpan="2" />
+		<auto-column name="articleId" colSpan="2" />
+		<auto-column name="currencyTypeId" colSpan="2" />
+		<auto-column name="exchangeRateShow" colSpan="2" />
+		<auto-column name="exchangeRate" colSpan="2" />
+		<auto-column name="amtGathering" colSpan="2" />
+		<auto-column name="amtAgainst" colSpan="2" />
+		<auto-column name="amtNotAgainst" colSpan="2" />
+	</column-model>
+
+	<html>
+		<![CDATA[
+			<div class="panel-header">
+				<div class="panel-title">付款人信息</div>
+			</div>
+		]]>
+	</html>
+
+	<column-model dataSetId="A" colSpan="6">
+		<auto-column name="chamberlainName" colSpan="2" labelWidth="13%" columnWidth="20%" />
+		<auto-column name="bankId" colSpan="2" labelWidth="13%" columnWidth="20%">
+			<relationDS>
+				<relationItem name="Bank">
+					<copyConfig copyColumnName="bankShort" copyValueField="bankShort" />
+				</relationItem>
+			</relationDS>
+		</auto-column>
+		<auto-column name="bankShort" text="银行名称" dsFieldMap="Bank.A.bankShort" readOnly="true" fixReadOnly="true" colSpan="2" labelWidth="13%" />
+		<auto-column name="bankAccount" colSpan="2" />
+		<auto-column name="linkman" colSpan="2" />
+		<auto-column name="linkPhone" colSpan="2" />
+	</column-model>
+
+	<column-model dataSetId="B" rownumber="false">
+		<toolbar>
+			<button text="新增" mode="fn" handler="g_addRow" iconCls="but_box"></button>
+			<button text="编辑" mode="fn" handler="g_editRow" iconCls="but_box"></button>
+			<button text="删除" mode="fn" handler="g_removeRow" iconCls="but_box"></button>
+		</toolbar>
+		<editor-toolbar>
+			<button text="新增" mode="fn" handler="g_pluginAddRow" iconCls="but_box"></button>
+			<button text="删除" mode="fn" handler="g_pluginRemoveRow" iconCls="but_box"></button>
+		</editor-toolbar>
+		<checkbox-column name="checkboxSelect" hideable="false" />
+		<id-column name="id" text="编号" hideable="true" />
+		<virtual-column name="FUN_C" text="操作" width="90">
+			<buttons>
+				<button text="编辑" mode="fn" handler="g_editSingleRow" iconCls="img_edit"></button>
+				<button text="复制" mode="fn" handler="g_copyRow" iconCls="img_add"></button>
+				<button text="删除" mode="fn" handler="g_removeSingleRow" iconCls="img_delete"></button>
+			</buttons>
+		</virtual-column>
+		<auto-column name="accountType">
+			<column-attribute name="observe" value="accountId,bankId" />
+		</auto-column>
+		<auto-column name="accountId">
+			<relationDS>
+				<relationItem name="BankAccount">
+					<copyConfig copyColumnName="bankId" copyValueField="bankId" />
+				</relationItem>
+			</relationDS>
+		</auto-column>
+		<auto-column name="bankId" text="费用银行" dsFieldMap="BankAccount.A.bankId" fixReadOnly="true" />
+		<auto-column name="incomeItemId" />
+		<auto-column name="amtFee" />
+	</column-model>
+
+	<html><![CDATA[
+					</div>
+					<div id="manageInfoDiv">
+	]]></html>
+
+	<column-model dataSetId="A" colSpan="4">
+		<auto-column name="createBy" colSpan="2" labelWidth="15%" columnWidth="35%" />
+		<auto-column name="createTime" colSpan="2" labelWidth="15%" />
+		<auto-column name="modifyBy" colSpan="2" />
+		<auto-column name="modifyTime" colSpan="2" />
+	</column-model>
+
+	<html><![CDATA[
+					</div>
+					<div id="remarkDiv">
+	]]></html>
+
+	<column-model dataSetId="A" colSpan="2">
+		<auto-column name="remark" colSpan="2" labelWidth="15%">
+			<column-attribute name="editor" value="textareafield" />
+		</auto-column>
+	</column-model>
+
+	<html><![CDATA[
+					</div>
+				</div>
+			</div>
+			<script type="text/javascript">
+			g_yuiCommondLi.push(function(Y) {
+				var tabview = new Y.TabView({srcNode:'#tabContent'});
+				tabview.render();
+				Y.one("#tabContent").setStyle("visibility", "visible");
+			});
+			</script>
+	]]></html>
+</form-template>

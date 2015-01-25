@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form-template xmlns="http://www.papersns.com/template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.papersns.com/template http://www.papersns.com/template ">
+	<id>CashAccountInit</id>
+	<data-source-model-id>CashAccountInit</data-source-model-id>
+	<adapter name="ModelFormTemplateAdapter" />
+	<description>现金账户初始化表单</description>
+	<scripts>cashaccountinit/cashAccountInitModel.js</scripts>
+	<view-template view="Console/FormSchema.html" />
+	<security byUnit="true" />
+
+	<toolbar>
+		<!-- <button name="listBtn" text="列表页" mode="url" handler="/console/listschema?@name=CashAccountInit" iconCls="but_box"></button> -->
+		<!-- <button name="newBtn" text="新增" mode="fn" handler="newData" iconCls="but_box"></button> -->
+		<!-- <button name="copyBtn" text="复制" mode="fn" handler="copyData" iconCls="but_box"></button> -->
+		<button name="editBtn" text="修改" mode="fn" handler="cashAccountInitEditData" iconCls="but_box"></button>
+		<button name="saveBtn" text="保存" mode="fn" handler="limitControlSaveData" iconCls="but_box"></button>
+		<button name="giveUpBtn" text="放弃" mode="fn" handler="cashAccountInitGiveUpData" iconCls="but_box"></button>
+		<!-- <button name="delBtn" text="删除" mode="fn" handler="deleteData" iconCls="but_box"></button> -->
+		<button name="refreshBtn" text="刷新" mode="fn" handler="cashAccountInitQueryData" iconCls="but_box"></button>
+		<!-- <button name="usedQueryBtn" text="被用查询" mode="fn" handler="logList" iconCls="but_box"></button> -->
+	</toolbar>
+
+	<column-model dataSetId="A" colSpan="3">
+		<id-column name="id" text="编号" hideable="true" />
+
+		<select-column name="accountId" text="账户名称" auto="true" manualRender="true">
+			<relationDS>
+				<relationItem name="CashAccount">
+					<relationConfig selectionMode="multi" />
+				</relationItem>
+			</relationDS>
+		</select-column>
+		<html colSpan="3"><![CDATA[
+			<td width="15%" class="searchTitle">
+				账户名称
+			</td>
+			<td width="20%" colspan="1">
+				<div id="A_accountId_render"></div>
+				<script type="text/javascript">
+				g_yuiCommondLi.push(function(Y) {
+					var formFieldFactory = new FormFieldFactory();
+					var field = formFieldFactory.getFormField(Y, 'accountId', 'A');
+					field.render("#A_accountId_render");
+					g_masterFormFieldLi.push(field);
+					g_masterFormFieldDict['accountId'] = field;
+				});
+				</script>
+			</td>
+			<td>
+				<input id="queryBtn" type="button" value="查询" onclick="cashAccountInitQueryData()" class="but_box" />
+				<input id="resetBtn" type="button" value="重置" onclick="resetQueryParameter()" class="but_box" />
+			</td>
+		]]></html>
+	</column-model>
+
+	<column-model dataSetId="B">
+		<toolbar>
+			<button name="selectRowBtn" text="选择" mode="fn" handler="g_selectRow" iconCls="but_box">
+				<relationDS>
+					<relationItem name="CashAccount">
+						<relationExpr>true</relationExpr>
+						<jsRelationExpr>true</jsRelationExpr>
+						<relationConfig selectorName="CashAccountSelector" displayField="code,name" valueField="id" selectionMode="multi" />
+						<copyConfig copyColumnName="accountId" copyValueField="id" />
+					</relationItem>
+				</relationDS>
+			</button>
+			<button text="新增" mode="fn" handler="g_addRow" iconCls="but_box"></button>
+			<button text="编辑" mode="fn" handler="g_editRow" iconCls="but_box"></button>
+			<button text="删除" mode="fn" handler="g_removeRow" iconCls="but_box"></button>
+		</toolbar>
+		<editor-toolbar>
+			<button text="新增" mode="fn" handler="g_pluginAddRow" iconCls="but_box"></button>
+			<button text="删除" mode="fn" handler="g_pluginRemoveRow" iconCls="but_box"></button>
+		</editor-toolbar>
+		<checkbox-column name="checkboxSelect" hideable="false" />
+		<id-column name="id" text="编号" hideable="true" />
+		<virtual-column name="FUN_C" text="操作" width="90">
+			<buttons>
+				<button text="编辑" mode="fn" handler="g_editSingleRow" iconCls="img_edit"></button>
+				<button text="复制" mode="fn" handler="g_copyRow" iconCls="img_add"></button>
+				<button text="删除" mode="fn" handler="g_removeSingleRow" iconCls="img_delete"></button>
+			</buttons>
+		</virtual-column>
+		<auto-column name="accountType" hideable="true" />
+		<auto-column name="accountId">
+			<relationDS>
+				<relationItem name="CashAccount">
+					<copyConfig copyColumnName="name" copyValueField="name" />
+					<copyConfig copyColumnName="currencyTypeId" copyValueField="currencyTypeId" />
+				</relationItem>
+			</relationDS>
+		</auto-column>
+		<auto-column name="name" text="账户名称" dsFieldMap="CashAccount.A.name" fixReadOnly="true" />
+		<auto-column name="currencyTypeId" />
+		<auto-column name="exchangeRateShow" />
+		<auto-column name="exchangeRate" />
+		<auto-column name="amtEarly" />
+	</column-model>
+</form-template>

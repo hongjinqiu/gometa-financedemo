@@ -5,9 +5,9 @@
 	<adapter name="ModelFormTemplateAdapter" />
 	<description>项目表单</description>
 	<scripts>article/articleModel.js</scripts>
-	<view-template view="Console/FormSchema.html"/>
-	<security byUnit="true"/>
-	
+	<view-template view="Console/FormSchema.html" />
+	<security byUnit="true" />
+
 	<toolbar>
 		<button name="listBtn" text="列表页" mode="url" handler="/console/listschema?@name=Article" iconCls="but_box"></button>
 		<button name="newBtn" text="新增" mode="fn" handler="newData" iconCls="but_box"></button>
@@ -19,10 +19,10 @@
 		<button name="refreshBtn" text="刷新" mode="fn" handler="refreshData" iconCls="but_box"></button>
 		<button name="usedQueryBtn" text="被用查询" mode="fn" handler="logList" iconCls="but_box"></button>
 	</toolbar>
-	
+
 	<column-model dataSetId="A" colSpan="4">
 		<id-column name="id" text="编号" hideable="true" />
-		
+
 		<auto-column name="code" colSpan="2" labelWidth="15%" columnWidth="35%" />
 		<auto-column name="name" colSpan="2" labelWidth="15%" columnWidth="35%" />
 		<auto-column name="articleTypeId" colSpan="2" />
@@ -37,25 +37,25 @@
 				<div>
 					<div id="manageInfoDiv">
 	]]></html>
-	
+
 	<column-model dataSetId="A" colSpan="4">
 		<auto-column name="createBy" colSpan="2" labelWidth="15%" columnWidth="35%" />
 		<auto-column name="createTime" colSpan="2" labelWidth="15%" />
 		<auto-column name="modifyBy" colSpan="2" />
 		<auto-column name="modifyTime" colSpan="2" />
 	</column-model>
-	
+
 	<html><![CDATA[
 					</div>
 					<div id="remarkDiv">
 	]]></html>
-	
+
 	<column-model dataSetId="A" colSpan="2">
 		<auto-column name="remark" colSpan="2" labelWidth="15%">
-			<column-attribute name="editor" value="textareafield"/>
+			<column-attribute name="editor" value="textareafield" />
 		</auto-column>
 	</column-model>
-	
+
 	<html><![CDATA[
 					</div>
 				</div>

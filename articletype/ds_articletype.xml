@@ -32,9 +32,9 @@
 			<remark id="remark" extends="REMARK" />
 		</fixField>
 		<bizField>
-			<field id="code" extends="CODE_FIELD">
+			<field id="" extends="code">
 			</field>
-			<field id="name" extends="NAME_FIELD">
+			<field id="" extends="name">
 			</field>
 		</bizField>
 	</masterData>

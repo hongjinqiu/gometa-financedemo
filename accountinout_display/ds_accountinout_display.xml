@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasource xmlns="http://www.papersns.com/datasource" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.papersns.com/datasource http://www.papersns.com/datasource ">
+	<id>AccountInOutDisplay</id>
+	<displayName>月档统计显示</displayName>
+	<systemId>FINANCE</systemId>
+	<codeFieldName></codeFieldName>
+	<businessDateField></businessDateField>
+	<accountBookIdField></accountBookIdField>
+	<modelType>BASE</modelType>
+	<inUsedDenyEdit>false</inUsedDenyEdit>
+	<actionNameSpace></actionNameSpace>
+	<listUrl></listUrl>
+	<collectionName></collectionName>
+	<billTypeField></billTypeField>
+	<billTypeParamDataSource></billTypeParamDataSource>
+	<hasCheckField></hasCheckField>
+	<listSortFields></listSortFields>
+	<masterData>
+		<id>A</id>
+		<displayName>主数据集</displayName>
+		<allowCopy>true</allowCopy>
+		<fixField>
+			<primaryKey id="id" extends="PRIMARY_KEY" />
+			<createBy id="createBy" extends="CREATE_BY" />
+			<createTime id="createTime" extends="CREATE_TIME" />
+			<createUnit id="createUnit" extends="CREATE_UNIT" />
+			<modifyBy id="modifyBy" extends="MODIFY_BY" />
+			<modifyUnit id="modifyUnit" extends="MODIFY_UNIT" />
+			<modifyTime id="modifyTime" extends="MODIFY_TIME" />
+			<billStatus id="billStatus" extends="BILL_STATUS" />
+			<attachCount id="attachCount" extends="ATTACH_COUNT" />
+			<remark id="remark" extends="REMARK" />
+		</fixField>
+		<bizField>
+			<field id="" extends="bankAccountId">
+			</field>
+			<field id="" extends="queryMode">
+			</field>
+			<field id="" extends="billDateBegin">
+			</field>
+			<field id="" extends="billDateEnd">
+			</field>
+			<field id="" extends="cashAccountId">
+			</field>
+			<field id="" extends="accountingYearStart">
+			</field>
+			<field id="" extends="accountingYearEnd">
+			</field>
+			<field id="" extends="accountingPeriodStart">
+			</field>
+			<field id="" extends="accountingPeriodEnd">
+			</field>
+			<field id="" extends="currencyTypeId">
+				<defaultValueExpr>1</defaultValueExpr>
+				<fixReadOnly>true</fixReadOnly>
+			</field>
+			<field id="property" extends="bankAccountProperty">
+			</field>
+			<field id="" extends="displayMode">
+			</field>
+		</bizField>
+	</masterData>
+	<detailData>
+		<id>B</id>
+		<displayName></displayName><!-- <displayName>月档信息</displayName> -->
+		<allowCopy>true</allowCopy>
+		<fixField>
+			<primaryKey id="id" extends="PRIMARY_KEY" />
+			<createBy id="createBy" extends="CREATE_BY" />
+			<createTime id="createTime" extends="CREATE_TIME" />
+			<createUnit id="createUnit" extends="CREATE_UNIT" />
+			<modifyBy id="modifyBy" extends="MODIFY_BY" />
+			<modifyUnit id="modifyUnit" extends="MODIFY_UNIT" />
+			<modifyTime id="modifyTime" extends="MODIFY_TIME" />
+			<billStatus id="billStatus" extends="BILL_STATUS" />
+			<attachCount id="attachCount" extends="ATTACH_COUNT" />
+			<remark id="remark" extends="REMARK" />
+		</fixField>
+		<bizField>
+			<field id="" extends="accountType">
+				<fixReadOnly>true</fixReadOnly>
+			</field>
+			<field id="" extends="accountId">
+				<displayName>账户代码</displayName>
+				<allowEmpty>true</allowEmpty>
+			</field>
+			<field id="" extends="bankAccountCurrencyTypeId">
+			</field>
+			<field id="" extends="currencyTypeId">
+				<allowEmpty>true</allowEmpty>
+			</field>
+			<field id="" extends="origBalance">
+			</field>
+			<field id="" extends="amtIncrease">
+				<allowEmpty>true</allowEmpty>
+			</field>
+			<field id="" extends="amtReduce">
+				<allowEmpty>true</allowEmpty>
+			</field>
+			<field id="" extends="finalBalance">
+			</field>
+			<field id="" extends="increaseCount">
+				<allowEmpty>true</allowEmpty>
+			</field>
+			<field id="" extends="reduceCount">
+				<allowEmpty>true</allowEmpty>
+			</field>
+		</bizField>
+	</detailData>
+</datasource>

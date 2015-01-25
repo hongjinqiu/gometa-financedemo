@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasource xmlns="http://www.papersns.com/datasource" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.papersns.com/datasource http://www.papersns.com/datasource ">
+	<id>ActionTest</id>
+	<displayName>服务端方法测试</displayName>
+	<systemId>FINANCE</systemId>
+	<codeFieldName></codeFieldName>
+	<businessDateField></businessDateField>
+	<accountBookIdField></accountBookIdField>
+	<modelType>BASE</modelType>
+	<inUsedDenyEdit>false</inUsedDenyEdit>
+	<actionNameSpace></actionNameSpace>
+	<listUrl></listUrl>
+	<collectionName></collectionName>
+	<billTypeField></billTypeField>
+	<billTypeParamDataSource></billTypeParamDataSource>
+	<hasCheckField></hasCheckField>
+	<listSortFields></listSortFields>
+	<masterData>
+		<id>A</id>
+		<displayName>主数据集</displayName>
+		<allowCopy>true</allowCopy>
+		<fixField>
+			<primaryKey id="id" extends="PRIMARY_KEY" />
+			<createBy id="createBy" extends="CREATE_BY" />
+			<createTime id="createTime" extends="CREATE_TIME" />
+			<createUnit id="createUnit" extends="CREATE_UNIT" />
+			<modifyBy id="modifyBy" extends="MODIFY_BY" />
+			<modifyUnit id="modifyUnit" extends="MODIFY_UNIT" />
+			<modifyTime id="modifyTime" extends="MODIFY_TIME" />
+			<billStatus id="billStatus" extends="BILL_STATUS" />
+			<attachCount id="attachCount" extends="ATTACH_COUNT" />
+			<remark id="remark" extends="REMARK" />
+		</fixField>
+		<bizField>
+			<field id="" extends="code">
+				<displayName>代码</displayName>
+				<allowEmpty>false</allowEmpty>
+				<fieldLength>20</fieldLength>
+				<defaultValueExpr>code</defaultValueExpr>
+			</field>
+			<field id="" extends="name">
+				<displayName>名称</displayName>
+				<allowEmpty>false</allowEmpty>
+				<fieldLength>40</fieldLength>
+				<defaultValueExpr>nick</defaultValueExpr>
+			</field>
+			<field id="" extends="age">
+			</field>
+			<field id="" extends="date">
+				<!-- <fieldNumberType>DATETIME</fieldNumberType> <fieldNumberType>YEAR</fieldNumberType> <fieldNumberType>YEARMONTH</fieldNumberType> <fieldNumberType>DATE</fieldNumberType> -->
+				<!-- var dateEnumLi = ["YEAR","YEARMONTH","DATE","TIME","DATETIME"]; -->
+			</field>
+			<field id="" extends="dicTest">
+			</field>
+			<field id="" extends="selectTest">
+			</field>
+		</bizField>
+	</masterData>
+	<detailData>
+		<id>B</id>
+		<displayName>分录数据集B</displayName>
+		<allowEmpty>false</allowEmpty>
+		<allowCopy>true</allowCopy>
+		<fixField>
+			<primaryKey id="id" extends="PRIMARY_KEY" />
+			<createBy id="createBy" extends="CREATE_BY" />
+			<createTime id="createTime" extends="CREATE_TIME" />
+			<createUnit id="createUnit" extends="CREATE_UNIT" />
+			<modifyBy id="modifyBy" extends="MODIFY_BY" />
+			<modifyUnit id="modifyUnit" extends="MODIFY_UNIT" />
+			<modifyTime id="modifyTime" extends="MODIFY_TIME" />
+			<billStatus id="billStatus" extends="BILL_STATUS" />
+			<attachCount id="attachCount" extends="ATTACH_COUNT" />
+			<remark id="remark" extends="REMARK" />
+		</fixField>
+		<bizField>
+			<field id="" extends="code">
+				<displayName>detailB_代码</displayName>
+				<allowEmpty>false</allowEmpty>
+				<fieldLength>20</fieldLength>
+				<defaultValueExpr>code</defaultValueExpr>
+				<allowCopy>true</allowCopy>
+				<!-- <relationDS> <relationItem name="SysUser"> <id>SysUserSelector</id> <relationExpr>true</relationExpr> <jsRelationExpr>true</jsRelationExpr> <relationModelId>SysUser</relationModelId> 
+					<relationDataSetId>A</relationDataSetId> <displayField>code,nick</displayField> <valueField>id</valueField> </relationItem> </relationDS> -->
+			</field>
+			<field id="" extends="name">
+				<displayName>detailB_昵称</displayName>
+				<allowEmpty>false</allowEmpty>
+				<fieldLength>40</fieldLength>
+				<defaultValueExpr>name</defaultValueExpr>
+			</field>
+			<field id="" extends="dicTest">
+				<defaultValueExpr>1</defaultValueExpr>
+			</field>
+			<field id="" extends="date">
+			</field>
+			<field id="" extends="age">
+				<defaultValueExpr>15</defaultValueExpr>
+			</field>
+			<field id="" extends="selectTest">
+			</field>
+			<!-- <field id="" extends="stringTest"> </field> -->
+		</bizField>
+	</detailData>
+	<detailData>
+		<id>C</id>
+		<displayName>分录数据集C</displayName>
+		<allowEmpty>false</allowEmpty>
+		<allowCopy>true</allowCopy>
+		<fixField>
+			<primaryKey id="id" extends="PRIMARY_KEY" />
+			<createBy id="createBy" extends="CREATE_BY" />
+			<createTime id="createTime" extends="CREATE_TIME" />
+			<createUnit id="createUnit" extends="CREATE_UNIT" />
+			<modifyBy id="modifyBy" extends="MODIFY_BY" />
+			<modifyUnit id="modifyUnit" extends="MODIFY_UNIT" />
+			<modifyTime id="modifyTime" extends="MODIFY_TIME" />
+			<billStatus id="billStatus" extends="BILL_STATUS" />
+			<attachCount id="attachCount" extends="ATTACH_COUNT" />
+			<remark id="remark" extends="REMARK" />
+		</fixField>
+		<bizField>
+			<field id="" extends="code">
+				<displayName>detailC_代码</displayName>
+				<allowEmpty>false</allowEmpty>
+				<fieldLength>20</fieldLength>
+				<defaultValueExpr>code</defaultValueExpr>
+			</field>
+			<field id="" extends="name">
+				<displayName>detailC_昵称</displayName>
+				<allowEmpty>false</allowEmpty>
+				<fieldLength>40</fieldLength>
+				<defaultValueExpr>nick</defaultValueExpr>
+			</field>
+		</bizField>
+	</detailData>
+</datasource>

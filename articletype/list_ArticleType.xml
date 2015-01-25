@@ -6,7 +6,7 @@
 
 	<adapter name="ModelListTemplateAdapter" />
 	<description>项目类别列表</description>
-	<cookie name="ArticleType"/>
+	<cookie name="ArticleType" />
 	<scripts>js/ds_listtoolbar.js</scripts>
 	<view-template view="Console/ListSchema.html" selectorView="Console/SelectorSchema.html" selectorScripts="" />
 
@@ -17,8 +17,8 @@
 		</button>
 		<button text="新增" mode="url!" handler="/console/formschema?@name=ArticleType" iconCls="but_box" use-in="selector" />	</toolbar>
 
-	<security byUnit="true"/>
-	
+	<security byUnit="true" />
+
 	<data-provider size="10">
 		<collection></collection><!-- mongoDB collection name -->
 		<fix-bson-query></fix-bson-query><!-- mongoDB fix query, json format -->
@@ -56,7 +56,5 @@
 	<query-parameters dataSetId="A">
 		<query-parameter name="code" auto="true" text=""></query-parameter>
 		<query-parameter name="name" auto="true" text=""></query-parameter>
-		<query-parameter name="code1" columnName="code" text="code1" restriction="eq" editor="textfield"></query-parameter>
-		<query-parameter name="code2" columnName="code" text="code2" restriction="eq" editor="textfield"></query-parameter>
 	</query-parameters>
 </list-template>

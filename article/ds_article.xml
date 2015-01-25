@@ -32,24 +32,11 @@
 			<remark id="remark" extends="REMARK" />
 		</fixField>
 		<bizField>
-			<field id="code" extends="CODE_FIELD">
+			<field id="" extends="code">
 			</field>
-			<field id="name" extends="NAME_FIELD">
+			<field id="" extends="name">
 			</field>
-			<field id="articleTypeId" extends="INT_FIELD">
-				<displayName>类别</displayName>
-				<allowEmpty>false</allowEmpty>
-				<relationDS>
-					<relationItem name="ArticleType">
-						<id>ArticleTypeSelector</id>
-						<relationExpr>true</relationExpr>
-						<jsRelationExpr>true</jsRelationExpr>
-						<relationModelId>ArticleType</relationModelId>
-						<relationDataSetId>A</relationDataSetId>
-						<displayField>code,name</displayField>
-						<valueField>id</valueField>
-					</relationItem>
-				</relationDS>
+			<field id="" extends="articleTypeId">
 			</field>
 		</bizField>
 	</masterData>

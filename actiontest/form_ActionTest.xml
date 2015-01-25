@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form-template xmlns="http://www.papersns.com/template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.papersns.com/template http://www.papersns.com/template ">
+	<id>ActionTest</id>
+	<data-source-model-id>ActionTest</data-source-model-id>
+	<adapter name="ModelFormTemplateAdapter" />
+	<description>ActionTest表单</description>
+	<scripts>actiontest/actionTestModel.js</scripts>
+	<view-template view="Console/FormSchema.html" />
+	<security byUnit="true" />
+
+	<toolbar>
+		<button name="listBtn" text="列表页" mode="url" handler="/console/listschema?@name=ActionTest" iconCls="but_box"></button>
+		<button name="newBtn" text="新增" mode="fn" handler="newData" iconCls="but_box"></button>
+		<button name="copyBtn" text="复制" mode="fn" handler="copyData" iconCls="but_box"></button>
+		<button name="editBtn" text="修改" mode="fn" handler="editData" iconCls="but_box"></button>
+		<button name="saveBtn" text="保存" mode="fn" handler="saveData" iconCls="but_box"></button>
+		<button name="giveUpBtn" text="放弃" mode="fn" handler="giveUpData" iconCls="but_box"></button>
+		<button name="delBtn" text="删除" mode="fn" handler="deleteData" iconCls="but_box"></button>
+		<button name="cancelBtn" text="作废" mode="fn" handler="cancelData" iconCls="but_box"></button>
+		<button name="unCancelBtn" text="反作废" mode="fn" handler="unCancelData" iconCls="but_box"></button>
+		<button name="refreshBtn" text="刷新" mode="fn" handler="refreshData" iconCls="but_box"></button>
+		<button name="usedQueryBtn" text="被用查询" mode="fn" handler="logList" iconCls="but_box"></button>
+	</toolbar>
+
+	<column-model dataSetId="A" colSpan="4">
+		<id-column name="id" text="编号" hideable="true" />
+		<auto-column name="billStatus" hideable="true" />
+
+		<auto-column name="code" colSpan="2" labelWidth="15%" columnWidth="35%" />
+		<auto-column name="dicTest" colSpan="2" labelWidth="15%" columnWidth="35%">
+
+		</auto-column>
+		<select-column name="selectTest" colSpan="2" auto="true" selectionMode="single"></select-column>
+		<auto-column name="age" colSpan="2" />
+		<auto-column name="date" colSpan="2">
+			<column-attribute name="editor" value="datefield" />
+		</auto-column>
+
+		<!-- -->
+		<!-- <auto-column name="name" colSpan="2" labelWidth="15%" /> <auto-column name="age" colSpan="2" /> <auto-column name="date" colSpan="2" /> -->
+
+	</column-model>
+
+	<column-model dataSetId="B">
+		<toolbar>
+			<button text="选择" mode="fn" handler="actionTestBSelect" iconCls="but_box"></button>
+			<button text="新增" mode="fn" handler="g_addRow" iconCls="but_box"></button>
+			<button text="编辑" mode="fn" handler="g_editRow" iconCls="but_box"></button>
+			<button text="删除" mode="fn" handler="g_removeRow" iconCls="but_box"></button>
+		</toolbar>
+		<checkbox-column name="checkboxSelect" hideable="false" />
+		<id-column name="id" text="编号" hideable="true" />
+		<virtual-column name="FUN_C" text="操作" width="90">
+			<buttons>
+				<button text="编辑" mode="fn" handler="g_editSingleRow" iconCls="img_edit"></button>
+				<button text="复制" mode="fn" handler="g_copyRow" iconCls="img_add"></button>
+				<button text="删除" mode="fn" handler="g_removeSingleRow" iconCls="img_delete"></button>
+			</buttons>
+		</virtual-column>
+		<auto-column name="code" />
+		<auto-column name="name" />
+		<auto-column name="dicTest" />
+		<auto-column name="date" />
+		<auto-column name="age" />
+		<auto-column name="selectTest" />
+	</column-model>
+
+	<column-model dataSetId="C">
+		<toolbar>
+			<button text="选择" mode="fn" handler="doSelect" iconCls="but_box"></button>
+			<button text="新增" mode="fn" handler="g_addRow" iconCls="but_box"></button>
+			<button text="删除" mode="fn" handler="doSelect" iconCls="but_box"></button>
+		</toolbar>
+		<id-column name="id" text="编号" hideable="true" />
+
+		<auto-column name="code" />
+		<auto-column name="name" />
+	</column-model>
+</form-template>
