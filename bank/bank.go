@@ -20,33 +20,33 @@ type Bank struct {
 
 func (c Bank) SaveData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BankSupport{}
-	modelRenderVO := c.RSaveCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.SaveCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c Bank) DeleteData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BankSupport{}
 
-	modelRenderVO := c.RDeleteDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.DeleteDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c Bank) EditData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BankSupport{}
-	modelRenderVO := c.REditDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.EditDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c Bank) NewData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BankSupport{}
 	modelRenderVO := c.RNewDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c Bank) GetData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BankSupport{}
-	modelRenderVO := c.RGetDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.GetDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -54,8 +54,8 @@ func (c Bank) GetData(w http.ResponseWriter, r *http.Request) {
  */
 func (c Bank) CopyData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BankSupport{}
-	modelRenderVO := c.RCopyDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.CopyDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -63,8 +63,8 @@ func (c Bank) CopyData(w http.ResponseWriter, r *http.Request) {
  */
 func (c Bank) GiveUpData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BankSupport{}
-	modelRenderVO := c.RGiveUpDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.GiveUpDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -72,12 +72,12 @@ func (c Bank) GiveUpData(w http.ResponseWriter, r *http.Request) {
  */
 func (c Bank) RefreshData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BankSupport{}
-	modelRenderVO := c.RRefreshDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.RefreshDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c Bank) LogList(w http.ResponseWriter, r *http.Request) {
-	result := c.RLogListCommon(w, r)
+	result := c.LogListCommon(w, r)
 
 	format := r.FormValue("format")
 	if strings.ToLower(format) == "json" {

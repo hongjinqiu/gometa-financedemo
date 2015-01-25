@@ -20,33 +20,33 @@ type BillPaymentTypeParameter struct {
 
 func (c BillPaymentTypeParameter) SaveData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BillPaymentTypeParameterSupport{}
-	modelRenderVO := c.RSaveCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.SaveCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c BillPaymentTypeParameter) DeleteData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BillPaymentTypeParameterSupport{}
 
-	modelRenderVO := c.RDeleteDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.DeleteDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c BillPaymentTypeParameter) EditData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BillPaymentTypeParameterSupport{}
-	modelRenderVO := c.REditDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.EditDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c BillPaymentTypeParameter) NewData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BillPaymentTypeParameterSupport{}
 	modelRenderVO := c.RNewDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c BillPaymentTypeParameter) GetData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BillPaymentTypeParameterSupport{}
-	modelRenderVO := c.RGetDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.GetDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -54,8 +54,8 @@ func (c BillPaymentTypeParameter) GetData(w http.ResponseWriter, r *http.Request
  */
 func (c BillPaymentTypeParameter) CopyData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BillPaymentTypeParameterSupport{}
-	modelRenderVO := c.RCopyDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.CopyDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -63,8 +63,8 @@ func (c BillPaymentTypeParameter) CopyData(w http.ResponseWriter, r *http.Reques
  */
 func (c BillPaymentTypeParameter) GiveUpData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BillPaymentTypeParameterSupport{}
-	modelRenderVO := c.RGiveUpDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.GiveUpDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -72,12 +72,12 @@ func (c BillPaymentTypeParameter) GiveUpData(w http.ResponseWriter, r *http.Requ
  */
 func (c BillPaymentTypeParameter) RefreshData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BillPaymentTypeParameterSupport{}
-	modelRenderVO := c.RRefreshDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.RefreshDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c BillPaymentTypeParameter) LogList(w http.ResponseWriter, r *http.Request) {
-	result := c.RLogListCommon(w, r)
+	result := c.LogListCommon(w, r)
 
 	format := r.FormValue("format")
 	if strings.ToLower(format) == "json" {

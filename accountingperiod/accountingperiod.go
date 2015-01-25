@@ -22,7 +22,7 @@ type AccountingPeriodSupport struct {
 	ActionSupport
 }
 
-func (o AccountingPeriodSupport) RAfterNewData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
+func (o AccountingPeriodSupport) AfterNewData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
 	masterData := (*bo)["A"].(map[string]interface{})
 
 	year := time.Now().Year()
@@ -40,7 +40,7 @@ func (o AccountingPeriodSupport) RAfterNewData(sessionId int, dataSource DataSou
 	dataSetId := "B"
 	for i := 0; i < numAccountingPeriod; i++ {
 		data := modelTemplateFactory.GetDataSetNewData(dataSource, dataSetId, *bo)
-		data["id"] = "RAfterNewData" + fmt.Sprint(i)
+		data["id"] = "AfterNewData" + fmt.Sprint(i)
 		data["sequenceNo"] = i + 1
 		numStr := fmt.Sprint(i + 1)
 		if i+1 < 10 {
@@ -70,7 +70,7 @@ func (o AccountingPeriodSupport) RAfterNewData(sessionId int, dataSource DataSou
 /**
 删除前判断被用，会计期内有单据则视为被用
 */
-func (o AccountingPeriodSupport) RBeforeDeleteData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
+func (o AccountingPeriodSupport) BeforeDeleteData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
 	bDataSetLi := (*bo)["B"].([]interface{})
 	firstLineData := bDataSetLi[0].(map[string]interface{})
 	lastLineData := bDataSetLi[len(bDataSetLi)-1].(map[string]interface{})
@@ -208,20 +208,20 @@ func (c AccountingPeriod) renderCommon(w http.ResponseWriter, r *http.Request, m
 
 func (c AccountingPeriod) SaveData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = AccountingPeriodSupport{}
-	modelRenderVO := c.RSaveCommon(w, r)
+	modelRenderVO := c.SaveCommon(w, r)
 	c.renderCommon(w, r, modelRenderVO)
 }
 
 func (c AccountingPeriod) DeleteData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = AccountingPeriodSupport{}
 
-	modelRenderVO := c.RDeleteDataCommon(w, r)
+	modelRenderVO := c.DeleteDataCommon(w, r)
 	c.renderCommon(w, r, modelRenderVO)
 }
 
 func (c AccountingPeriod) EditData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = AccountingPeriodSupport{}
-	modelRenderVO := c.REditDataCommon(w, r)
+	modelRenderVO := c.EditDataCommon(w, r)
 	c.renderCommon(w, r, modelRenderVO)
 }
 
@@ -233,7 +233,7 @@ func (c AccountingPeriod) NewData(w http.ResponseWriter, r *http.Request) {
 
 func (c AccountingPeriod) GetData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = AccountingPeriodSupport{}
-	modelRenderVO := c.RGetDataCommon(w, r)
+	modelRenderVO := c.GetDataCommon(w, r)
 	c.renderCommon(w, r, modelRenderVO)
 }
 
@@ -242,7 +242,7 @@ func (c AccountingPeriod) GetData(w http.ResponseWriter, r *http.Request) {
  */
 func (c AccountingPeriod) CopyData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = AccountingPeriodSupport{}
-	modelRenderVO := c.RCopyDataCommon(w, r)
+	modelRenderVO := c.CopyDataCommon(w, r)
 	c.renderCommon(w, r, modelRenderVO)
 }
 
@@ -251,7 +251,7 @@ func (c AccountingPeriod) CopyData(w http.ResponseWriter, r *http.Request) {
  */
 func (c AccountingPeriod) GiveUpData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = AccountingPeriodSupport{}
-	modelRenderVO := c.RGiveUpDataCommon(w, r)
+	modelRenderVO := c.GiveUpDataCommon(w, r)
 	c.renderCommon(w, r, modelRenderVO)
 }
 
@@ -260,12 +260,12 @@ func (c AccountingPeriod) GiveUpData(w http.ResponseWriter, r *http.Request) {
  */
 func (c AccountingPeriod) RefreshData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = AccountingPeriodSupport{}
-	modelRenderVO := c.RRefreshDataCommon(w, r)
+	modelRenderVO := c.RefreshDataCommon(w, r)
 	c.renderCommon(w, r, modelRenderVO)
 }
 
 func (c AccountingPeriod) LogList(w http.ResponseWriter, r *http.Request) {
-	result := c.RLogListCommon(w, r)
+	result := c.LogListCommon(w, r)
 
 	format := r.FormValue("format")
 	if strings.ToLower(format) == "json" {

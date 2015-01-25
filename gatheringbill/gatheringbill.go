@@ -24,7 +24,7 @@ type GatheringBillSupport struct {
 	ActionSupport
 }
 
-func (c GatheringBillSupport) RAfterNewData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
+func (c GatheringBillSupport) AfterNewData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
 	master := (*bo)["A"].(map[string]interface{})
 	(*bo)["A"] = master
 	modelTemplateFactory := ModelTemplateFactory{}
@@ -66,7 +66,7 @@ func (c GatheringBillSupport) RAfterNewData(sessionId int, dataSource DataSource
 	c.setBillNo(sessionId, bo)
 }
 
-func (o GatheringBillSupport) RAfterCopyData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
+func (o GatheringBillSupport) AfterCopyData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
 	// 单据编号
 	o.setBillNo(sessionId, bo)
 }
@@ -133,7 +133,7 @@ func (c GatheringBillSupport) getDestDiffDataRowItem(diffDataRow DiffDataRow) Di
 	return tmpItem
 }
 
-func (c GatheringBillSupport) RAfterSaveData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}, diffDataRowLi *[]DiffDataRow) {
+func (c GatheringBillSupport) AfterSaveData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}, diffDataRowLi *[]DiffDataRow) {
 	for _, item := range *diffDataRowLi {
 		if item.SrcData != nil && item.DestData != nil { // 修改
 			// 旧数据反过账,新数据正过账
@@ -267,7 +267,7 @@ func (c GatheringBillSupport) checkLimitsControlPanicMessage(sessionId int, bo m
 	}
 }
 
-func (c GatheringBillSupport) RAfterDeleteData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
+func (c GatheringBillSupport) AfterDeleteData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
 	masterData := (*bo)["A"].(map[string]interface{})
 	if fmt.Sprint(masterData["billStatus"]) == "4" { // 4为已作废,已作废单据不过账,不检查赤字
 		return
@@ -504,7 +504,7 @@ func (c GatheringBillSupport) logAccountForDetailB(sessionId int, dataSource Dat
 /**
  * 作废过账,赤字判断
  */
-func (c GatheringBillSupport) RAfterCancelData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
+func (c GatheringBillSupport) AfterCancelData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
 	modelIterator := ModelIterator{}
 	var result interface{} = ""
 	// 过账,
@@ -532,7 +532,7 @@ func (c GatheringBillSupport) RAfterCancelData(sessionId int, dataSource DataSou
 /**
  * 反作废过账,赤字判断
  */
-func (c GatheringBillSupport) RAfterUnCancelData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
+func (c GatheringBillSupport) AfterUnCancelData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
 	modelIterator := ModelIterator{}
 	var result interface{} = ""
 	// 过账,
@@ -563,33 +563,33 @@ type GatheringBill struct {
 
 func (c GatheringBill) SaveData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = GatheringBillSupport{}
-	modelRenderVO := c.RSaveCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.SaveCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c GatheringBill) DeleteData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = GatheringBillSupport{}
 
-	modelRenderVO := c.RDeleteDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.DeleteDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c GatheringBill) EditData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = GatheringBillSupport{}
-	modelRenderVO := c.REditDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.EditDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c GatheringBill) NewData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = GatheringBillSupport{}
 	modelRenderVO := c.RNewDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c GatheringBill) GetData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = GatheringBillSupport{}
-	modelRenderVO := c.RGetDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.GetDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -597,8 +597,8 @@ func (c GatheringBill) GetData(w http.ResponseWriter, r *http.Request) {
  */
 func (c GatheringBill) CopyData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = GatheringBillSupport{}
-	modelRenderVO := c.RCopyDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.CopyDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -606,8 +606,8 @@ func (c GatheringBill) CopyData(w http.ResponseWriter, r *http.Request) {
  */
 func (c GatheringBill) GiveUpData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = GatheringBillSupport{}
-	modelRenderVO := c.RGiveUpDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.GiveUpDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -615,12 +615,12 @@ func (c GatheringBill) GiveUpData(w http.ResponseWriter, r *http.Request) {
  */
 func (c GatheringBill) RefreshData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = GatheringBillSupport{}
-	modelRenderVO := c.RRefreshDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.RefreshDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c GatheringBill) LogList(w http.ResponseWriter, r *http.Request) {
-	result := c.RLogListCommon(w, r)
+	result := c.LogListCommon(w, r)
 
 	format := r.FormValue("format")
 	if strings.ToLower(format) == "json" {
@@ -640,8 +640,8 @@ func (c GatheringBill) LogList(w http.ResponseWriter, r *http.Request) {
  */
 func (c GatheringBill) CancelData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = GatheringBillSupport{}
-	modelRenderVO := c.RCancelDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.CancelDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -649,6 +649,6 @@ func (c GatheringBill) CancelData(w http.ResponseWriter, r *http.Request) {
  */
 func (c GatheringBill) UnCancelData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = GatheringBillSupport{}
-	modelRenderVO := c.RUnCancelDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.UnCancelDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }

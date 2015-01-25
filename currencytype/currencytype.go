@@ -20,33 +20,33 @@ type CurrencyType struct {
 
 func (c CurrencyType) SaveData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = CurrencyTypeSupport{}
-	modelRenderVO := c.RSaveCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.SaveCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c CurrencyType) DeleteData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = CurrencyTypeSupport{}
 
-	modelRenderVO := c.RDeleteDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.DeleteDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c CurrencyType) EditData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = CurrencyTypeSupport{}
-	modelRenderVO := c.REditDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.EditDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c CurrencyType) NewData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = CurrencyTypeSupport{}
 	modelRenderVO := c.RNewDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c CurrencyType) GetData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = CurrencyTypeSupport{}
-	modelRenderVO := c.RGetDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.GetDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -54,8 +54,8 @@ func (c CurrencyType) GetData(w http.ResponseWriter, r *http.Request) {
  */
 func (c CurrencyType) CopyData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = CurrencyTypeSupport{}
-	modelRenderVO := c.RCopyDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.CopyDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -63,8 +63,8 @@ func (c CurrencyType) CopyData(w http.ResponseWriter, r *http.Request) {
  */
 func (c CurrencyType) GiveUpData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = CurrencyTypeSupport{}
-	modelRenderVO := c.RGiveUpDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.GiveUpDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -72,12 +72,12 @@ func (c CurrencyType) GiveUpData(w http.ResponseWriter, r *http.Request) {
  */
 func (c CurrencyType) RefreshData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = CurrencyTypeSupport{}
-	modelRenderVO := c.RRefreshDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.RefreshDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c CurrencyType) LogList(w http.ResponseWriter, r *http.Request) {
-	result := c.RLogListCommon(w, r)
+	result := c.LogListCommon(w, r)
 
 	format := r.FormValue("format")
 	if strings.ToLower(format) == "json" {

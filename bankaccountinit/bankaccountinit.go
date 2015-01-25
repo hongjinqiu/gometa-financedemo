@@ -25,7 +25,7 @@ type BankAccountInitSupport struct {
 	ActionSupport
 }
 
-func (c BankAccountInitSupport) RAfterSaveData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}, diffDateRowLi *[]DiffDataRow) {
+func (c BankAccountInitSupport) AfterSaveData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}, diffDateRowLi *[]DiffDataRow) {
 	for _, item := range *diffDateRowLi {
 		if item.SrcData != nil && item.DestData != nil { // 修改
 			// 旧数据反过账,新数据正过账
@@ -38,7 +38,7 @@ func (c BankAccountInitSupport) RAfterSaveData(sessionId int, dataSource DataSou
 	}
 }
 
-func (c BankAccountInitSupport) RAfterDeleteData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
+func (c BankAccountInitSupport) AfterDeleteData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
 	// 反过账
 	data := (*bo)["A"].(map[string]interface{})
 	c.logBankAccount(sessionId, dataSource, data, DELETE)
@@ -86,12 +86,12 @@ type BankAccountInit struct {
 	BaseDataAction
 }
 
-func (c BankAccountInit) RSaveCommon(w http.ResponseWriter, r *http.Request) ModelRenderVO {
+func (c BankAccountInit) SaveCommon(w http.ResponseWriter, r *http.Request) ModelRenderVO {
 	sessionId := global.GetSessionId()
 	global.SetGlobalAttr(sessionId, "userId", session.GetFromSession(w, r, "userId"))
 	global.SetGlobalAttr(sessionId, "adminUserId", session.GetFromSession(w, r, "adminUserId"))
 	defer global.CloseSession(sessionId)
-	defer c.RRollbackTxn(sessionId)
+	defer c.RollbackTxn(sessionId)
 
 	userId, err := strconv.Atoi(session.GetFromSession(w, r, "userId"))
 	if err != nil {
@@ -174,19 +174,19 @@ func (c BankAccountInit) RSaveCommon(w http.ResponseWriter, r *http.Request) Mod
 		bankAccountInit := &bankAccountInitLi[i]
 		strId := modelTemplateFactory.GetStrId(*bankAccountInit)
 		if strId == "" || strId == "0" {
-			c.RSetCreateFixFieldValue(sessionId, dataSource, bankAccountInit)
+			c.SetCreateFixFieldValue(sessionId, dataSource, bankAccountInit)
 		} else {
-			c.RSetModifyFixFieldValue(sessionId, dataSource, bankAccountInit)
-			editMessage, isValid := c.RActionSupport.REditValidate(sessionId, dataSource, formTemplate, *bankAccountInit)
+			c.SetModifyFixFieldValue(sessionId, dataSource, bankAccountInit)
+			editMessage, isValid := c.RActionSupport.EditValidate(sessionId, dataSource, formTemplate, *bankAccountInit)
 			if !isValid {
 				panic(editMessage)
 			}
 		}
 		// 这样只会是新增和修改的数据
-		c.RActionSupport.RBeforeSaveData(sessionId, dataSource, formTemplate, bankAccountInit)
+		c.RActionSupport.BeforeSaveData(sessionId, dataSource, formTemplate, bankAccountInit)
 		financeService := FinanceService{}
 		diffDataRowLi := financeService.SaveData(sessionId, dataSource, bankAccountInit)
-		c.RActionSupport.RAfterSaveData(sessionId, dataSource, formTemplate, bankAccountInit, diffDataRowLi)
+		c.RActionSupport.AfterSaveData(sessionId, dataSource, formTemplate, bankAccountInit, diffDataRowLi)
 
 		bDataSetLi = append(bDataSetLi, (*bankAccountInit)["A"])
 
@@ -271,22 +271,22 @@ func (c BankAccountInit) dealDelete(sessionId int, dataSource DataSource, formTe
 			usedCheck.DeleteAll(sessionId, fieldGroupLi, *data)
 		})
 
-		c.RActionSupport.RBeforeDeleteData(sessionId, dataSource, formTemplate, &item)
+		c.RActionSupport.BeforeDeleteData(sessionId, dataSource, formTemplate, &item)
 		_, removeResult := txnManager.Remove(txnId, collectionName, item)
 		if !removeResult {
 			panic("删除失败")
 		}
-		c.RActionSupport.RAfterDeleteData(sessionId, dataSource, formTemplate, &item)
+		c.RActionSupport.AfterDeleteData(sessionId, dataSource, formTemplate, &item)
 	}
 	return toDeleteLi
 }
 
-func (c BankAccountInit) RGetDataCommon(w http.ResponseWriter, r *http.Request) ModelRenderVO {
+func (c BankAccountInit) GetDataCommon(w http.ResponseWriter, r *http.Request) ModelRenderVO {
 	sessionId := global.GetSessionId()
 	global.SetGlobalAttr(sessionId, "userId", session.GetFromSession(w, r, "userId"))
 	global.SetGlobalAttr(sessionId, "adminUserId", session.GetFromSession(w, r, "adminUserId"))
 	defer global.CloseSession(sessionId)
-	defer c.RRollbackTxn(sessionId)
+	defer c.RollbackTxn(sessionId)
 
 	userId, err := strconv.Atoi(session.GetFromSession(w, r, "userId"))
 	if err != nil {
@@ -313,7 +313,7 @@ func (c BankAccountInit) RGetDataCommon(w http.ResponseWriter, r *http.Request) 
 	modelTemplateFactory := ModelTemplateFactory{}
 	dataSource := modelTemplateFactory.GetDataSource(dataSourceModelId)
 	collectionName := modelTemplateFactory.GetCollectionName(dataSource)
-	c.RActionSupport.RBeforeGetData(sessionId, dataSource, formTemplate)
+	c.RActionSupport.BeforeGetData(sessionId, dataSource, formTemplate)
 	// 需要进行循环处理,再转回来,
 	pageNo := 1
 	pageSize := 1000
@@ -329,7 +329,7 @@ func (c BankAccountInit) RGetDataCommon(w http.ResponseWriter, r *http.Request) 
 			"A":   line["A"],
 		}
 		modelTemplateFactory.ConvertDataType(dataSource, &bo)
-		c.RActionSupport.RAfterGetData(sessionId, dataSource, formTemplate, &bo)
+		c.RActionSupport.AfterGetData(sessionId, dataSource, formTemplate, &bo)
 		dataSetLi = append(dataSetLi, bo["A"])
 	}
 	bo := map[string]interface{}{
@@ -362,12 +362,12 @@ func (c BankAccountInit) RGetDataCommon(w http.ResponseWriter, r *http.Request) 
 	}
 }
 
-func (c BankAccountInit) REditDataCommon(w http.ResponseWriter, r *http.Request) ModelRenderVO {
+func (c BankAccountInit) EditDataCommon(w http.ResponseWriter, r *http.Request) ModelRenderVO {
 	sessionId := global.GetSessionId()
 	global.SetGlobalAttr(sessionId, "userId", session.GetFromSession(w, r, "userId"))
 	global.SetGlobalAttr(sessionId, "adminUserId", session.GetFromSession(w, r, "adminUserId"))
 	defer global.CloseSession(sessionId)
-	defer c.RRollbackTxn(sessionId)
+	defer c.RollbackTxn(sessionId)
 
 	userId, err := strconv.Atoi(session.GetFromSession(w, r, "userId"))
 	if err != nil {
@@ -435,13 +435,13 @@ func (c BankAccountInit) REditDataCommon(w http.ResponseWriter, r *http.Request)
 		}
 
 		modelTemplateFactory.ConvertDataType(dataSource, &bo)
-		editMessage, isValid := c.RActionSupport.REditValidate(sessionId, dataSource, formTemplate, bo)
+		editMessage, isValid := c.RActionSupport.EditValidate(sessionId, dataSource, formTemplate, bo)
 		if !isValid {
 			panic(editMessage)
 		}
 
-		c.RActionSupport.RBeforeEditData(sessionId, dataSource, formTemplate, &bo)
-		c.RActionSupport.RAfterEditData(sessionId, dataSource, formTemplate, &bo)
+		c.RActionSupport.BeforeEditData(sessionId, dataSource, formTemplate, &bo)
+		c.RActionSupport.AfterEditData(sessionId, dataSource, formTemplate, &bo)
 		dataSetLi = append(dataSetLi, bo["A"])
 	}
 
@@ -475,12 +475,12 @@ func (c BankAccountInit) REditDataCommon(w http.ResponseWriter, r *http.Request)
 	}
 }
 
-func (c BankAccountInit) RGiveUpDataCommon(w http.ResponseWriter, r *http.Request) ModelRenderVO {
+func (c BankAccountInit) GiveUpDataCommon(w http.ResponseWriter, r *http.Request) ModelRenderVO {
 	sessionId := global.GetSessionId()
 	global.SetGlobalAttr(sessionId, "userId", session.GetFromSession(w, r, "userId"))
 	global.SetGlobalAttr(sessionId, "adminUserId", session.GetFromSession(w, r, "adminUserId"))
 	defer global.CloseSession(sessionId)
-	defer c.RRollbackTxn(sessionId)
+	defer c.RollbackTxn(sessionId)
 
 	userId, err := strconv.Atoi(session.GetFromSession(w, r, "userId"))
 	if err != nil {
@@ -546,8 +546,8 @@ func (c BankAccountInit) RGiveUpDataCommon(w http.ResponseWriter, r *http.Reques
 			"A":   line["A"],
 		}
 		modelTemplateFactory.ConvertDataType(dataSource, &bo)
-		c.RActionSupport.RBeforeGiveUpData(sessionId, dataSource, formTemplate, &bo)
-		c.RActionSupport.RAfterGiveUpData(sessionId, dataSource, formTemplate, &bo)
+		c.RActionSupport.BeforeGiveUpData(sessionId, dataSource, formTemplate, &bo)
+		c.RActionSupport.AfterGiveUpData(sessionId, dataSource, formTemplate, &bo)
 		dataSetLi = append(dataSetLi, bo["A"])
 	}
 	bo := map[string]interface{}{
@@ -579,12 +579,12 @@ func (c BankAccountInit) RGiveUpDataCommon(w http.ResponseWriter, r *http.Reques
 	}
 }
 
-func (c BankAccountInit) RRefreshDataCommon(w http.ResponseWriter, r *http.Request) ModelRenderVO {
+func (c BankAccountInit) RefreshDataCommon(w http.ResponseWriter, r *http.Request) ModelRenderVO {
 	sessionId := global.GetSessionId()
 	global.SetGlobalAttr(sessionId, "userId", session.GetFromSession(w, r, "userId"))
 	global.SetGlobalAttr(sessionId, "adminUserId", session.GetFromSession(w, r, "adminUserId"))
 	defer global.CloseSession(sessionId)
-	defer c.RRollbackTxn(sessionId)
+	defer c.RollbackTxn(sessionId)
 
 	userId, err := strconv.Atoi(session.GetFromSession(w, r, "userId"))
 	if err != nil {
@@ -651,8 +651,8 @@ func (c BankAccountInit) RRefreshDataCommon(w http.ResponseWriter, r *http.Reque
 			"A":   line["A"],
 		}
 		modelTemplateFactory.ConvertDataType(dataSource, &bo)
-		c.RActionSupport.RBeforeRefreshData(sessionId, dataSource, formTemplate, &bo)
-		c.RActionSupport.RAfterRefreshData(sessionId, dataSource, formTemplate, &bo)
+		c.RActionSupport.BeforeRefreshData(sessionId, dataSource, formTemplate, &bo)
+		c.RActionSupport.AfterRefreshData(sessionId, dataSource, formTemplate, &bo)
 		dataSetLi = append(dataSetLi, bo["A"])
 	}
 	bo := map[string]interface{}{
@@ -686,33 +686,33 @@ func (c BankAccountInit) RRefreshDataCommon(w http.ResponseWriter, r *http.Reque
 
 func (c BankAccountInit) SaveData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BankAccountInitSupport{}
-	modelRenderVO := c.RSaveCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.SaveCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c BankAccountInit) DeleteData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BankAccountInitSupport{}
 
-	modelRenderVO := c.RDeleteDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.DeleteDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c BankAccountInit) EditData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BankAccountInitSupport{}
-	modelRenderVO := c.REditDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.EditDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c BankAccountInit) NewData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BankAccountInitSupport{}
 	modelRenderVO := c.RNewDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c BankAccountInit) GetData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BankAccountInitSupport{}
-	modelRenderVO := c.RGetDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.GetDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -720,8 +720,8 @@ func (c BankAccountInit) GetData(w http.ResponseWriter, r *http.Request) {
  */
 func (c BankAccountInit) CopyData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BankAccountInitSupport{}
-	modelRenderVO := c.RCopyDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.CopyDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -729,8 +729,8 @@ func (c BankAccountInit) CopyData(w http.ResponseWriter, r *http.Request) {
  */
 func (c BankAccountInit) GiveUpData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BankAccountInitSupport{}
-	modelRenderVO := c.RGiveUpDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.GiveUpDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -738,12 +738,12 @@ func (c BankAccountInit) GiveUpData(w http.ResponseWriter, r *http.Request) {
  */
 func (c BankAccountInit) RefreshData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BankAccountInitSupport{}
-	modelRenderVO := c.RRefreshDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.RefreshDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c BankAccountInit) LogList(w http.ResponseWriter, r *http.Request) {
-	result := c.RLogListCommon(w, r)
+	result := c.LogListCommon(w, r)
 
 	format := r.FormValue("format")
 	if strings.ToLower(format) == "json" {

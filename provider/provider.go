@@ -20,33 +20,33 @@ type Provider struct {
 
 func (c Provider) SaveData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = ProviderSupport{}
-	modelRenderVO := c.RSaveCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.SaveCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c Provider) DeleteData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = ProviderSupport{}
 
-	modelRenderVO := c.RDeleteDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.DeleteDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c Provider) EditData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = ProviderSupport{}
-	modelRenderVO := c.REditDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.EditDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c Provider) NewData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = ProviderSupport{}
 	modelRenderVO := c.RNewDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c Provider) GetData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = ProviderSupport{}
-	modelRenderVO := c.RGetDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.GetDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -54,8 +54,8 @@ func (c Provider) GetData(w http.ResponseWriter, r *http.Request) {
  */
 func (c Provider) CopyData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = ProviderSupport{}
-	modelRenderVO := c.RCopyDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.CopyDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -63,8 +63,8 @@ func (c Provider) CopyData(w http.ResponseWriter, r *http.Request) {
  */
 func (c Provider) GiveUpData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = ProviderSupport{}
-	modelRenderVO := c.RGiveUpDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.GiveUpDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -72,12 +72,12 @@ func (c Provider) GiveUpData(w http.ResponseWriter, r *http.Request) {
  */
 func (c Provider) RefreshData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = ProviderSupport{}
-	modelRenderVO := c.RRefreshDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.RefreshDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c Provider) LogList(w http.ResponseWriter, r *http.Request) {
-	result := c.RLogListCommon(w, r)
+	result := c.LogListCommon(w, r)
 
 	format := r.FormValue("format")
 	if strings.ToLower(format) == "json" {

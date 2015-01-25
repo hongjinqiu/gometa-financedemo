@@ -17,12 +17,12 @@ type ActionTestSupport struct {
 	ActionSupport
 }
 
-func (c ActionTestSupport) RBeforeSaveData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
-	println("ActionTestSupport RBeforeSaveData")
+func (c ActionTestSupport) BeforeSaveData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
+	println("ActionTestSupport BeforeSaveData")
 }
 
-func (c ActionTestSupport) RAfterSaveData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}, diffDateRowLi *[]DiffDataRow) {
-	println("ActionTestSupport RAfterSaveData")
+func (c ActionTestSupport) AfterSaveData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}, diffDateRowLi *[]DiffDataRow) {
+	println("ActionTestSupport AfterSaveData")
 }
 
 type ActionTest struct {
@@ -31,33 +31,33 @@ type ActionTest struct {
 
 func (c ActionTest) SaveData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = ActionTestSupport{}
-	modelRenderVO := c.RSaveCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.SaveCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c ActionTest) DeleteData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = ActionTestSupport{}
 
-	modelRenderVO := c.RDeleteDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.DeleteDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c ActionTest) EditData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = ActionTestSupport{}
-	modelRenderVO := c.REditDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.EditDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c ActionTest) NewData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = ActionTestSupport{}
 	modelRenderVO := c.RNewDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c ActionTest) GetData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = ActionTestSupport{}
-	modelRenderVO := c.RGetDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.GetDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -65,8 +65,8 @@ func (c ActionTest) GetData(w http.ResponseWriter, r *http.Request) {
  */
 func (c ActionTest) CopyData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = ActionTestSupport{}
-	modelRenderVO := c.RCopyDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.CopyDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -74,8 +74,8 @@ func (c ActionTest) CopyData(w http.ResponseWriter, r *http.Request) {
  */
 func (c ActionTest) GiveUpData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = ActionTestSupport{}
-	modelRenderVO := c.RGiveUpDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.GiveUpDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -83,12 +83,12 @@ func (c ActionTest) GiveUpData(w http.ResponseWriter, r *http.Request) {
  */
 func (c ActionTest) RefreshData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = ActionTestSupport{}
-	modelRenderVO := c.RRefreshDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.RefreshDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c ActionTest) LogList(w http.ResponseWriter, r *http.Request) {
-	result := c.RLogListCommon(w, r)
+	result := c.LogListCommon(w, r)
 
 	format := r.FormValue("format")
 	if strings.ToLower(format) == "json" {
@@ -105,12 +105,12 @@ func (c ActionTest) LogList(w http.ResponseWriter, r *http.Request) {
 
 func (c ActionTest) CancelData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = ActionTestSupport{}
-	modelRenderVO := c.RCancelDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.CancelDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c ActionTest) UnCancelData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = ActionSupport{}
-	modelRenderVO := c.RUnCancelDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.UnCancelDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }

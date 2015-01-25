@@ -20,33 +20,33 @@ type SysUser struct {
 
 func (c SysUser) SaveData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = SysUserSupport{}
-	modelRenderVO := c.RSaveCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.SaveCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c SysUser) DeleteData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = SysUserSupport{}
 
-	modelRenderVO := c.RDeleteDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.DeleteDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c SysUser) EditData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = SysUserSupport{}
-	modelRenderVO := c.REditDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.EditDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c SysUser) NewData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = SysUserSupport{}
 	modelRenderVO := c.RNewDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c SysUser) GetData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = SysUserSupport{}
-	modelRenderVO := c.RGetDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.GetDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -54,8 +54,8 @@ func (c SysUser) GetData(w http.ResponseWriter, r *http.Request) {
  */
 func (c SysUser) CopyData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = SysUserSupport{}
-	modelRenderVO := c.RCopyDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.CopyDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -63,8 +63,8 @@ func (c SysUser) CopyData(w http.ResponseWriter, r *http.Request) {
  */
 func (c SysUser) GiveUpData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = SysUserSupport{}
-	modelRenderVO := c.RGiveUpDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.GiveUpDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -72,12 +72,12 @@ func (c SysUser) GiveUpData(w http.ResponseWriter, r *http.Request) {
  */
 func (c SysUser) RefreshData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = SysUserSupport{}
-	modelRenderVO := c.RRefreshDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.RefreshDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c SysUser) LogList(w http.ResponseWriter, r *http.Request) {
-	result := c.RLogListCommon(w, r)
+	result := c.LogListCommon(w, r)
 
 	format := r.FormValue("format")
 	if strings.ToLower(format) == "json" {

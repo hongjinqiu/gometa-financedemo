@@ -24,7 +24,7 @@ type BbsPostSupport struct {
 	ActionSupport
 }
 
-func (c BbsPostSupport) RAfterSaveData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}, diffDateRowLi *[]DiffDataRow) {
+func (c BbsPostSupport) AfterSaveData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}, diffDateRowLi *[]DiffDataRow) {
 	master := (*bo)["A"].(map[string]interface{})
 	if fmt.Sprint(master["type"]) == "1" { // 主题帖
 		c.bbsPostAfterSaveData(sessionId, dataSource, bo, diffDateRowLi)
@@ -108,7 +108,7 @@ func (c BbsPostSupport) addOrUpdateBbsPostRead(sessionId int, bbsPostId int) {
 		"A.readBy":    userId,
 	})
 	if found {
-		bbsPost.RSetModifyFixFieldValue(sessionId, bbsPostReadDS, &bbsPostRead)
+		bbsPost.SetModifyFixFieldValue(sessionId, bbsPostReadDS, &bbsPostRead)
 		bbsPostReadA := bbsPostRead["A"].(map[string]interface{})
 		bbsPostRead["A"] = bbsPostReadA
 
@@ -146,11 +146,11 @@ func (c BbsPostSupport) addBbsPostRead(sessionId int, bbsPostId int) {
 			"lastReadTime": dateUtil.GetCurrentYyyyMMddHHmmss(),
 		},
 	}
-	bbsPost.RSetCreateFixFieldValue(sessionId, bbsPostReadDS, &bbsPostRead)
+	bbsPost.SetCreateFixFieldValue(sessionId, bbsPostReadDS, &bbsPostRead)
 	txnManager.Insert(txnId, "BbsPostRead", bbsPostRead)
 }
 
-func (o BbsPostSupport) RBeforeDeleteData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
+func (o BbsPostSupport) BeforeDeleteData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
 	session, _ := global.GetConnection(sessionId)
 	// 已回复过的帖子不可删除
 	qb := QuerySupport{}
@@ -170,7 +170,7 @@ func (o BbsPostSupport) RBeforeDeleteData(sessionId int, dataSource DataSource, 
 	}
 }
 
-func (c BbsPostSupport) RAfterDeleteData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
+func (c BbsPostSupport) AfterDeleteData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
 	// 反过账
 	_, db := global.GetConnection(sessionId)
 	txnManager := TxnManager{db}
@@ -193,33 +193,33 @@ type BbsPost struct {
 
 func (c BbsPost) SaveData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BbsPostSupport{}
-	modelRenderVO := c.RSaveCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.SaveCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c BbsPost) DeleteData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BbsPostSupport{}
 
-	modelRenderVO := c.RDeleteDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.DeleteDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c BbsPost) EditData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BbsPostSupport{}
-	modelRenderVO := c.REditDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.EditDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c BbsPost) NewData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BbsPostSupport{}
 	modelRenderVO := c.RNewDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c BbsPost) GetData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BbsPostSupport{}
-	modelRenderVO := c.RGetDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.GetDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -227,8 +227,8 @@ func (c BbsPost) GetData(w http.ResponseWriter, r *http.Request) {
  */
 func (c BbsPost) CopyData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BbsPostSupport{}
-	modelRenderVO := c.RCopyDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.CopyDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -236,8 +236,8 @@ func (c BbsPost) CopyData(w http.ResponseWriter, r *http.Request) {
  */
 func (c BbsPost) GiveUpData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BbsPostSupport{}
-	modelRenderVO := c.RGiveUpDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.GiveUpDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -245,12 +245,12 @@ func (c BbsPost) GiveUpData(w http.ResponseWriter, r *http.Request) {
  */
 func (c BbsPost) RefreshData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BbsPostSupport{}
-	modelRenderVO := c.RRefreshDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.RefreshDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c BbsPost) LogList(w http.ResponseWriter, r *http.Request) {
-	result := c.RLogListCommon(w, r)
+	result := c.LogListCommon(w, r)
 
 	format := r.FormValue("format")
 	if strings.ToLower(format) == "json" {

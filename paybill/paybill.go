@@ -24,7 +24,7 @@ type PayBillSupport struct {
 	ActionSupport
 }
 
-func (c PayBillSupport) RAfterNewData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
+func (c PayBillSupport) AfterNewData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
 	master := (*bo)["A"].(map[string]interface{})
 	modelTemplateFactory := ModelTemplateFactory{}
 	billTypeParameterDataSource := modelTemplateFactory.GetDataSource("BillPaymentTypeParameter")
@@ -65,7 +65,7 @@ func (c PayBillSupport) RAfterNewData(sessionId int, dataSource DataSource, form
 	c.setBillNo(sessionId, bo)
 }
 
-func (o PayBillSupport) RAfterCopyData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
+func (o PayBillSupport) AfterCopyData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
 	// 单据编号
 	o.setBillNo(sessionId, bo)
 }
@@ -132,7 +132,7 @@ func (c PayBillSupport) getDestDiffDataRowItem(diffDataRow DiffDataRow) DiffData
 	return tmpItem
 }
 
-func (c PayBillSupport) RAfterSaveData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}, diffDataRowLi *[]DiffDataRow) {
+func (c PayBillSupport) AfterSaveData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}, diffDataRowLi *[]DiffDataRow) {
 	for _, item := range *diffDataRowLi {
 		if item.SrcData != nil && item.DestData != nil { // 修改
 			// 旧数据反过账,新数据正过账
@@ -266,7 +266,7 @@ func (c PayBillSupport) checkLimitsControlPanicMessage(sessionId int, bo map[str
 	}
 }
 
-func (c PayBillSupport) RAfterDeleteData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
+func (c PayBillSupport) AfterDeleteData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
 	masterData := (*bo)["A"].(map[string]interface{})
 	if fmt.Sprint(masterData["billStatus"]) == "4" { // 4为已作废,已作废单据不过账,不检查赤字
 		return
@@ -503,7 +503,7 @@ func (c PayBillSupport) logAccountForDetailB(sessionId int, dataSource DataSourc
 /**
  * 作废过账,赤字判断
  */
-func (c PayBillSupport) RAfterCancelData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
+func (c PayBillSupport) AfterCancelData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
 	modelIterator := ModelIterator{}
 	var result interface{} = ""
 	// 过账,
@@ -531,7 +531,7 @@ func (c PayBillSupport) RAfterCancelData(sessionId int, dataSource DataSource, f
 /**
  * 反作废过账,赤字判断
  */
-func (c PayBillSupport) RAfterUnCancelData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
+func (c PayBillSupport) AfterUnCancelData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
 	modelIterator := ModelIterator{}
 	var result interface{} = ""
 	// 过账,
@@ -562,33 +562,33 @@ type PayBill struct {
 
 func (c PayBill) SaveData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = PayBillSupport{}
-	modelRenderVO := c.RSaveCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.SaveCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c PayBill) DeleteData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = PayBillSupport{}
 
-	modelRenderVO := c.RDeleteDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.DeleteDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c PayBill) EditData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = PayBillSupport{}
-	modelRenderVO := c.REditDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.EditDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c PayBill) NewData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = PayBillSupport{}
 	modelRenderVO := c.RNewDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c PayBill) GetData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = PayBillSupport{}
-	modelRenderVO := c.RGetDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.GetDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -596,8 +596,8 @@ func (c PayBill) GetData(w http.ResponseWriter, r *http.Request) {
  */
 func (c PayBill) CopyData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = PayBillSupport{}
-	modelRenderVO := c.RCopyDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.CopyDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -605,8 +605,8 @@ func (c PayBill) CopyData(w http.ResponseWriter, r *http.Request) {
  */
 func (c PayBill) GiveUpData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = PayBillSupport{}
-	modelRenderVO := c.RGiveUpDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.GiveUpDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -614,12 +614,12 @@ func (c PayBill) GiveUpData(w http.ResponseWriter, r *http.Request) {
  */
 func (c PayBill) RefreshData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = PayBillSupport{}
-	modelRenderVO := c.RRefreshDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.RefreshDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c PayBill) LogList(w http.ResponseWriter, r *http.Request) {
-	result := c.RLogListCommon(w, r)
+	result := c.LogListCommon(w, r)
 
 	format := r.FormValue("format")
 	if strings.ToLower(format) == "json" {
@@ -639,8 +639,8 @@ func (c PayBill) LogList(w http.ResponseWriter, r *http.Request) {
  */
 func (c PayBill) CancelData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = ActionSupport{}
-	modelRenderVO := c.RCancelDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.CancelDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -648,6 +648,6 @@ func (c PayBill) CancelData(w http.ResponseWriter, r *http.Request) {
  */
 func (c PayBill) UnCancelData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = ActionSupport{}
-	modelRenderVO := c.RUnCancelDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.UnCancelDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }

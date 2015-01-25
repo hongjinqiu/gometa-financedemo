@@ -25,7 +25,7 @@ type BankAccountSupport struct {
 /**
 * 为避免并发问题,重设amtOriginalCurrencyBalance为数据库中值
  */
-func (o BankAccountSupport) RBeforeSaveData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
+func (o BankAccountSupport) BeforeSaveData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
 	session, _ := global.GetConnection(sessionId)
 	modelTemplateFactory := ModelTemplateFactory{}
 	strId := modelTemplateFactory.GetStrId(*bo)
@@ -74,7 +74,7 @@ func (o BankAccountSupport) RBeforeSaveData(sessionId int, dataSource DataSource
 	}
 }
 
-func (c BankAccountSupport) RAfterNewData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
+func (c BankAccountSupport) AfterNewData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
 	modelTemplateFactory := ModelTemplateFactory{}
 	dataSetId := "B"
 	data := modelTemplateFactory.GetDataSetNewData(dataSource, dataSetId, *bo)
@@ -103,7 +103,7 @@ func (c BankAccountSupport) RAfterNewData(sessionId int, dataSource DataSource, 
 	}
 }
 
-func (c BankAccountSupport) RAfterSaveData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}, diffDataRowLi *[]DiffDataRow) {
+func (c BankAccountSupport) AfterSaveData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}, diffDataRowLi *[]DiffDataRow) {
 	for _, item := range *diffDataRowLi {
 		if item.FieldGroupLi[0].GetDataSetId() == "B" { // 币别分录
 			if item.SrcData != nil && item.DestData != nil { // 修改
@@ -209,9 +209,9 @@ func (c BankAccountSupport) logBankAccountCurrencyType(sessionId int, bankAccoun
 		boMaster := bo["A"].(map[string]interface{})
 		boMaster["id"] = masterSeqId
 		bo["A"] = boMaster
-		bankAccountAction.RSetCreateFixFieldValue(sessionId, dataSource, &bo)
+		bankAccountAction.SetCreateFixFieldValue(sessionId, dataSource, &bo)
 	} else {
-		bankAccountAction.RSetModifyFixFieldValue(sessionId, dataSource, &bo)
+		bankAccountAction.SetModifyFixFieldValue(sessionId, dataSource, &bo)
 	}
 
 	if diffDataType == ADD {
@@ -229,7 +229,7 @@ func (c BankAccountSupport) logBankAccountCurrencyType(sessionId int, bankAccoun
 	}
 }
 
-func (c BankAccountSupport) RAfterDeleteData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
+func (c BankAccountSupport) AfterDeleteData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
 	// 直接删除,整个删除 账户币别中的数据
 	bankAccountMasterData := (*bo)["A"].(map[string]interface{})
 	_, db := global.GetConnection(sessionId)
@@ -248,33 +248,33 @@ type BankAccount struct {
 
 func (c BankAccount) SaveData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BankAccountSupport{}
-	modelRenderVO := c.RSaveCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.SaveCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c BankAccount) DeleteData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BankAccountSupport{}
 
-	modelRenderVO := c.RDeleteDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.DeleteDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c BankAccount) EditData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BankAccountSupport{}
-	modelRenderVO := c.REditDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.EditDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c BankAccount) NewData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BankAccountSupport{}
 	modelRenderVO := c.RNewDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c BankAccount) GetData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BankAccountSupport{}
-	modelRenderVO := c.RGetDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.GetDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -282,8 +282,8 @@ func (c BankAccount) GetData(w http.ResponseWriter, r *http.Request) {
  */
 func (c BankAccount) CopyData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BankAccountSupport{}
-	modelRenderVO := c.RCopyDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.CopyDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -291,8 +291,8 @@ func (c BankAccount) CopyData(w http.ResponseWriter, r *http.Request) {
  */
 func (c BankAccount) GiveUpData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BankAccountSupport{}
-	modelRenderVO := c.RGiveUpDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.GiveUpDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -300,12 +300,12 @@ func (c BankAccount) GiveUpData(w http.ResponseWriter, r *http.Request) {
  */
 func (c BankAccount) RefreshData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BankAccountSupport{}
-	modelRenderVO := c.RRefreshDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.RefreshDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c BankAccount) LogList(w http.ResponseWriter, r *http.Request) {
-	result := c.RLogListCommon(w, r)
+	result := c.LogListCommon(w, r)
 
 	format := r.FormValue("format")
 	if strings.ToLower(format) == "json" {

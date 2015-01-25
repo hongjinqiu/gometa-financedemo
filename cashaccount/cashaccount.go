@@ -19,7 +19,7 @@ type CashAccountSupport struct {
 	ActionSupport
 }
 
-func (o CashAccountSupport) RAfterNewData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
+func (o CashAccountSupport) AfterNewData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
 	masterData := (*bo)["A"].(map[string]interface{})
 	(*bo)["A"] = masterData
 
@@ -44,7 +44,7 @@ func (o CashAccountSupport) RAfterNewData(sessionId int, dataSource DataSource, 
 /**
 * 为避免并发问题,重设amtOriginalCurrencyBalance为数据库中值
  */
-func (o CashAccountSupport) RBeforeSaveData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
+func (o CashAccountSupport) BeforeSaveData(sessionId int, dataSource DataSource, formTemplate FormTemplate, bo *map[string]interface{}) {
 	session, _ := global.GetConnection(sessionId)
 	modelTemplateFactory := ModelTemplateFactory{}
 	strId := modelTemplateFactory.GetStrId(*bo)
@@ -85,33 +85,33 @@ type CashAccount struct {
 
 func (c CashAccount) SaveData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = CashAccountSupport{}
-	modelRenderVO := c.RSaveCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.SaveCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c CashAccount) DeleteData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = CashAccountSupport{}
 
-	modelRenderVO := c.RDeleteDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.DeleteDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c CashAccount) EditData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = CashAccountSupport{}
-	modelRenderVO := c.REditDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.EditDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c CashAccount) NewData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = CashAccountSupport{}
 	modelRenderVO := c.RNewDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c CashAccount) GetData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = CashAccountSupport{}
-	modelRenderVO := c.RGetDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.GetDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -119,8 +119,8 @@ func (c CashAccount) GetData(w http.ResponseWriter, r *http.Request) {
  */
 func (c CashAccount) CopyData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = CashAccountSupport{}
-	modelRenderVO := c.RCopyDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.CopyDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -128,8 +128,8 @@ func (c CashAccount) CopyData(w http.ResponseWriter, r *http.Request) {
  */
 func (c CashAccount) GiveUpData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = CashAccountSupport{}
-	modelRenderVO := c.RGiveUpDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.GiveUpDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -137,12 +137,12 @@ func (c CashAccount) GiveUpData(w http.ResponseWriter, r *http.Request) {
  */
 func (c CashAccount) RefreshData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = CashAccountSupport{}
-	modelRenderVO := c.RRefreshDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.RefreshDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c CashAccount) LogList(w http.ResponseWriter, r *http.Request) {
-	result := c.RLogListCommon(w, r)
+	result := c.LogListCommon(w, r)
 
 	format := r.FormValue("format")
 	if strings.ToLower(format) == "json" {

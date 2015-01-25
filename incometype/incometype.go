@@ -20,33 +20,33 @@ type IncomeType struct {
 
 func (c IncomeType) SaveData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = IncomeTypeSupport{}
-	modelRenderVO := c.RSaveCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.SaveCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c IncomeType) DeleteData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = IncomeTypeSupport{}
 
-	modelRenderVO := c.RDeleteDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.DeleteDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c IncomeType) EditData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = IncomeTypeSupport{}
-	modelRenderVO := c.REditDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.EditDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c IncomeType) NewData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = IncomeTypeSupport{}
 	modelRenderVO := c.RNewDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c IncomeType) GetData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = IncomeTypeSupport{}
-	modelRenderVO := c.RGetDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.GetDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -54,8 +54,8 @@ func (c IncomeType) GetData(w http.ResponseWriter, r *http.Request) {
  */
 func (c IncomeType) CopyData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = IncomeTypeSupport{}
-	modelRenderVO := c.RCopyDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.CopyDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -63,8 +63,8 @@ func (c IncomeType) CopyData(w http.ResponseWriter, r *http.Request) {
  */
 func (c IncomeType) GiveUpData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = IncomeTypeSupport{}
-	modelRenderVO := c.RGiveUpDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.GiveUpDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -72,12 +72,12 @@ func (c IncomeType) GiveUpData(w http.ResponseWriter, r *http.Request) {
  */
 func (c IncomeType) RefreshData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = IncomeTypeSupport{}
-	modelRenderVO := c.RRefreshDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.RefreshDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c IncomeType) LogList(w http.ResponseWriter, r *http.Request) {
-	result := c.RLogListCommon(w, r)
+	result := c.LogListCommon(w, r)
 
 	format := r.FormValue("format")
 	if strings.ToLower(format) == "json" {

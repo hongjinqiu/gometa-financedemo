@@ -20,33 +20,33 @@ type BalanceType struct {
 
 func (c BalanceType) SaveData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BalanceTypeSupport{}
-	modelRenderVO := c.RSaveCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.SaveCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c BalanceType) DeleteData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BalanceTypeSupport{}
 
-	modelRenderVO := c.RDeleteDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.DeleteDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c BalanceType) EditData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BalanceTypeSupport{}
-	modelRenderVO := c.REditDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.EditDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c BalanceType) NewData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BalanceTypeSupport{}
 	modelRenderVO := c.RNewDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c BalanceType) GetData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BalanceTypeSupport{}
-	modelRenderVO := c.RGetDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.GetDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -54,8 +54,8 @@ func (c BalanceType) GetData(w http.ResponseWriter, r *http.Request) {
  */
 func (c BalanceType) CopyData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BalanceTypeSupport{}
-	modelRenderVO := c.RCopyDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.CopyDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -63,8 +63,8 @@ func (c BalanceType) CopyData(w http.ResponseWriter, r *http.Request) {
  */
 func (c BalanceType) GiveUpData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BalanceTypeSupport{}
-	modelRenderVO := c.RGiveUpDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.GiveUpDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 /**
@@ -72,12 +72,12 @@ func (c BalanceType) GiveUpData(w http.ResponseWriter, r *http.Request) {
  */
 func (c BalanceType) RefreshData(w http.ResponseWriter, r *http.Request) {
 	c.RActionSupport = BalanceTypeSupport{}
-	modelRenderVO := c.RRefreshDataCommon(w, r)
-	c.RRenderCommon(w, r, modelRenderVO)
+	modelRenderVO := c.RefreshDataCommon(w, r)
+	c.RenderCommon(w, r, modelRenderVO)
 }
 
 func (c BalanceType) LogList(w http.ResponseWriter, r *http.Request) {
-	result := c.RLogListCommon(w, r)
+	result := c.LogListCommon(w, r)
 
 	format := r.FormValue("format")
 	if strings.ToLower(format) == "json" {
