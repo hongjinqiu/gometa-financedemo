@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form-template xmlns="http://www.papersns.com/template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.papersns.com/template http://www.papersns.com/template ">
+<form-template xmlns="http://www.papersns.com/template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://github.com/hongjinqiu/gometa/template https://raw.githubusercontent.com/hongjinqiu/gometa/master/schema/schema.xsd">
 	<id>BillType</id>
 	<data-source-model-id>BillType</data-source-model-id>
 	<adapter name="ModelFormTemplateAdapter" />
@@ -18,6 +18,7 @@
 		<!-- <button name="delBtn" text="删除" mode="fn" handler="deleteData" iconCls="but_box"></button> -->
 		<!-- <button name="refreshBtn" text="刷新" mode="fn" handler="refreshData" iconCls="but_box"></button> -->
 		<button name="usedQueryBtn" text="被用查询" mode="fn" handler="logList" iconCls="but_box"></button>
+		<button text="查看配置" mode="url^" handler="/console/rawxmlcontent?@name=BillType&amp;type=Form" iconCls="but_box"></button>
 	</toolbar>
 
 	<html><![CDATA[

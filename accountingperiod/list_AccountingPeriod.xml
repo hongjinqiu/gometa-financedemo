@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<list-template xmlns="http://www.papersns.com/template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.papersns.com/template http://www.papersns.com/template ">
+<list-template xmlns="http://www.papersns.com/template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://github.com/hongjinqiu/gometa/template https://raw.githubusercontent.com/hongjinqiu/gometa/master/schema/schema.xsd">
 	<id>AccountingPeriod</id>
 	<selector-id>AccountingPeriodSelector</selector-id>
 	<data-source-model-id>AccountingPeriod</data-source-model-id>
@@ -14,6 +14,8 @@
 		<button text="新增" mode="url" handler="/console/formschema?@name=AccountingPeriod" iconCls="but_box" />
 
 		<button text="删除" mode="fn" handler="g_deleteRecords" iconCls="but_box">
+		</button>
+		<button text="查看配置" mode="url^" handler="/console/rawxmlcontent?@name=AccountingPeriod&amp;type=Component" iconCls="but_box">
 		</button>
 		<button text="新增" mode="url!" handler="/console/formschema?@name=AccountingPeriod" iconCls="but_box" use-in="selector" />	</toolbar>
 

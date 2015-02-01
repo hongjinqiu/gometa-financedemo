@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 这是一个辅助的xml,用于辅助form_CashAccountInit.xml做页面步局,保存时,数据并不存储到CashAccountInit中,而是保存到ds_accountinit.xml对应的collection中 -->
-<datasource xmlns="http://www.papersns.com/datasource" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.papersns.com/datasource http://www.papersns.com/datasource ">
+<datasource xmlns="http://www.papersns.com/datasource" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://github.com/hongjinqiu/gometa/datasource https://raw.githubusercontent.com/hongjinqiu/gometa/master/schema/datasource.xsd">
 	<id>CashAccountInit</id>
 	<displayName>现金账户初始化</displayName>
 	<systemId>FINANCE</systemId>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 仅用于被用查询的关联选择用,没有其它的用途 -->
-<list-template xmlns="http://www.papersns.com/template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.papersns.com/template http://www.papersns.com/template ">
+<list-template xmlns="http://www.papersns.com/template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://github.com/hongjinqiu/gometa/template https://raw.githubusercontent.com/hongjinqiu/gometa/master/schema/schema.xsd">
 	<id>AccountInit</id>
 	<selector-id>AccountInitSelector</selector-id>
 	<data-source-model-id>AccountInit</data-source-model-id>
