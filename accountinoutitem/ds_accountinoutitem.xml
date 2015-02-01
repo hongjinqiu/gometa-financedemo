@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<datasource xmlns="http://www.papersns.com/datasource" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://github.com/hongjinqiu/gometa/datasource https://raw.githubusercontent.com/hongjinqiu/gometa/master/schema/datasource.xsd">
+<datasource xmlns="https://github.com/hongjinqiu/gometa/datasource" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://github.com/hongjinqiu/gometa/datasource https://raw.githubusercontent.com/hongjinqiu/gometa/master/schema/datasource.xsd">
 	<id>AccountInOutItem</id>
 	<displayName>日记账明细</displayName>
 	<systemId>FINANCE</systemId>

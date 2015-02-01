@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 注,这个list列表页并没有用到,只做为ds_pubreferencelog.xml中配置被用的选择器使用 -->
-<list-template xmlns="http://www.papersns.com/template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://github.com/hongjinqiu/gometa/template https://raw.githubusercontent.com/hongjinqiu/gometa/master/schema/schema.xsd">
+<list-template xmlns="https://github.com/hongjinqiu/gometa/template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://github.com/hongjinqiu/gometa/template https://raw.githubusercontent.com/hongjinqiu/gometa/master/schema/schema.xsd">
 	<id>BillPaymentTypeParameter</id>
 	<selector-id>BillPaymentTypeParameterSelector</selector-id>
 	<data-source-model-id></data-source-model-id>
