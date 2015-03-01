@@ -94,16 +94,6 @@ gometa-financedemo是gometa框架的演示，其功能是实现一个简单的�
         'isLeaf': 1,
     })
     
-#    li.append({
-#        'name': '单据类型',
-#        'isLeaf': 2,
-#    })
-#    li.append({
-#        'name': '单据类型', 
-#        'url': 'BillType',
-#        'isLeaf': 1,
-#    })
-    
     li.append({
         'name': '单据类型参数',
         'isLeaf': 2,
